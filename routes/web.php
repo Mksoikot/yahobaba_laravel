@@ -45,3 +45,22 @@ Route::get('/post', function () {
 Route::get('/about', function () {
     return view('about');
 })->name('myabout');
+
+
+Route::prefix('page')->group(function () {
+
+    Route::get('/post/1', function () {
+        return "<h1>This Post Page</h1>";
+    });
+    Route::get('/about', function () {
+        return "<h1>This About Page</h1>";
+    });
+    Route::get('/gallery/new', function () {
+        return "<h1>This Gallery Page</h1>";
+    });
+});
+
+
+Route::fallback(function () {
+    return "<h1>Page Not Found</h1>";
+});
