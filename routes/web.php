@@ -2,6 +2,13 @@
 
 use Illuminate\Support\Facades\Route;
 
+function getUsers(){
+    return [
+        1=> ['name' => 'Mk', 'phone'=> '01622243117', 'city'=> 'Feni'],
+        2=> ['name' => 'Soikot', 'phone'=> '01722243118', 'city'=> 'Dhaka'],
+        3=> ['name' => 'Bhuiyan', 'phone'=> '01822243119', 'city'=> 'Cumilla']
+    ];
+}
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -38,29 +45,60 @@ Route::get('/', function () {
 //     }
 // })->where('id','[a-zA-Z]+');
 
-Route::get('/post', function () {
-    return view('post');
-})->name('mypost');
+// Route::get('/post', function () {
+//     return view('post');
+// })->name('mypost');
+
+// Route::get('/about', function () {
+//     return view('about');
+// })->name('myabout');
+
+
+// Route::prefix('page')->group(function () {
+
+//     Route::get('/post/1', function () {
+//         return "<h1>This Post Page</h1>";
+//     });
+//     Route::get('/about', function () {
+//         return "<h1>This About Page</h1>";
+//     });
+//     Route::get('/gallery/new', function () {
+//         return "<h1>This Gallery Page</h1>";
+//     });
+// });
+
 
 Route::get('/about', function () {
     return view('about');
-})->name('myabout');
+})->name('about');
 
+Route::get('/contact', function () {
+    return view('contact');
+})->name('contact');
 
-Route::prefix('page')->group(function () {
+Route::get('/blog', function () {
+    return view('blog');
+})->name('blog');
 
-    Route::get('/post/1', function () {
-        return "<h1>This Post Page</h1>";
-    });
-    Route::get('/about', function () {
-        return "<h1>This About Page</h1>";
-    });
-    Route::get('/gallery/new', function () {
-        return "<h1>This Gallery Page</h1>";
-    });
+Route::get('/users', function () {
+   $names = getUsers();
+    // $users = 'Mk';
+    // $citys = 'Feni';
+   return view('users', ['user' => $names]);
+//    return view('users')->with('user', $users)->with('city', $citys);
+//    return view('users', compact('users', 'citys'));
 });
+
+Route::get('/user/{id}', function ($id) {
+    $users = getUsers();
+    abort_if(!isset($users[$id]), 404);
+    $user = $users[$id];
+    return view('user', ['id'=> $user]);
+})->name('view_user');
 
 
 Route::fallback(function () {
     return "<h1>Page Not Found</h1>";
 });
+
+
