@@ -1,14 +1,16 @@
 <?php
 
+use App\Http\Controllers\PageController;
+use App\Http\Controllers\TestController;
 use Illuminate\Support\Facades\Route;
 
-function getUsers(){
-    return [
-        1=> ['name' => 'Mk', 'phone'=> '01622243117', 'city'=> 'Feni'],
-        2=> ['name' => 'Soikot', 'phone'=> '01722243118', 'city'=> 'Dhaka'],
-        3=> ['name' => 'Bhuiyan', 'phone'=> '01822243119', 'city'=> 'Cumilla']
-    ];
-}
+// function getUsers(){
+//     return [
+//         1=> ['name' => 'Mk', 'phone'=> '01622243117', 'city'=> 'Feni'],
+//         2=> ['name' => 'Soikot', 'phone'=> '01722243118', 'city'=> 'Dhaka'],
+//         3=> ['name' => 'Bhuiyan', 'phone'=> '01822243119', 'city'=> 'Cumilla']
+//     ];
+// }
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -68,37 +70,46 @@ Route::get('/', function () {
 // });
 
 
-Route::get('/about', function () {
-    return view('about');
-})->name('about');
+// Route::get('/about', function () {
+//     return view('about');
+// })->name('about');
 
-Route::get('/contact', function () {
-    return view('contact');
-})->name('contact');
+// Route::get('/contact', function () {
+//     return view('contact');
+// })->name('contact');
 
-Route::get('/blog', function () {
-    return view('blog');
-})->name('blog');
+// Route::get('/blog', function () {
+//     return view('blog');
+// })->name('blog');
 
-Route::get('/users', function () {
-   $names = getUsers();
+// Route::get('/users', function () {
+//    $names = getUsers();
     // $users = 'Mk';
     // $citys = 'Feni';
-   return view('users', ['user' => $names]);
+//    return view('users', ['user' => $names]);
 //    return view('users')->with('user', $users)->with('city', $citys);
 //    return view('users', compact('users', 'citys'));
-});
+// });
 
-Route::get('/user/{id}', function ($id) {
-    $users = getUsers();
-    abort_if(!isset($users[$id]), 404);
-    $user = $users[$id];
-    return view('user', ['id'=> $user]);
-})->name('view_user');
-
+// Route::get('/user/{id}', function ($id) {
+//     $users = getUsers();
+//     abort_if(!isset($users[$id]), 404);
+//     $user = $users[$id];
+//     return view('user', ['id'=> $user]);
+// })->name('view_user');
 
 Route::fallback(function () {
     return "<h1>Page Not Found</h1>";
 });
 
+Route::controller(PageController::class)->group(function () {
+    Route::get("/page_user","ShowUser");
+    Route::get("/page_about","About")->name("about");
+    Route::get("/page_contact","Contact")->name("contact");
+    Route::get("/page_blog","Blog")->name("blog");
+    Route::get("/page_user/{id}","User");
+});
 
+
+
+Route::get("/test",TestController::class);

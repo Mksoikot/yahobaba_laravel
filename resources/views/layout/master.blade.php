@@ -69,6 +69,7 @@
         <a class="btn btn-secondary" href="{{ route('about')}}" role="button">About</a>
         <a class="btn btn-success" href="{{ route('contact')}}" role="button">Contact</a>
         <a class="btn btn-danger" href="{{ route('blog')}}" role="button">Blog</a>
+        {{-- <a class="btn btn-dark" href="{{ route('user',$id)}}" role="button">User</a> --}}
 	</header>
 	<nav>
 		<ul>
@@ -76,6 +77,7 @@
 			<li><a href="{{ route('about')}}">About</a></li>
 			<li><a href="{{ route('contact')}}">Contact</a></li>
 			<li><a href="{{ route('blog')}}">Blog</a></li>
+			{{-- <li><a href="{{ route('user')}}">User</a></li> --}}
 		</ul>
 	</nav>
 	@yield('content')
