@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\PageController;
+use App\Http\Controllers\StudentConteroller;
 use App\Http\Controllers\TestController;
 use Illuminate\Support\Facades\Route;
 
@@ -113,3 +114,13 @@ Route::controller(PageController::class)->group(function () {
 
 
 Route::get("/test",TestController::class);
+
+
+// Student
+Route::get("/show_student",[StudentConteroller::class, 'Show'])->name('home');
+Route::get("/single_student/{id}",[StudentConteroller::class, 'singleStudent'])->name('student.view');
+
+Route::get("/add_student",[StudentConteroller::class, 'addStudent']);
+Route::get("/update_student",[StudentConteroller::class, 'upadetStudent']);
+
+Route::get("/delete_student/{id}",[StudentConteroller::class, 'delete'])->name('student.delete');
